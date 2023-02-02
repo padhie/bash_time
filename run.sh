@@ -16,5 +16,5 @@ while :
 do
 	date +%s
 	echo "$(date +%s)" >> $DAY_FILE
-	sleep 1
+	sleep 60
 done
