@@ -1,4 +1,4 @@
-# bash_time
+# timer
 Scripts for time issues
 
 # General

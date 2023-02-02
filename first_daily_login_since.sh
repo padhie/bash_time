@@ -4,7 +4,7 @@ CURRENT_MONTH=$(date +%m)
 CURRENT_DAY=$(date +%d)
 CURRENT_TIMESTAMP=$(date +%s)
 
-DAY_FILE="${CURRENT_MONTH}_${CURRENT_DAY}.txt"
+DAY_FILE="data/${CURRENT_MONTH}_${CURRENT_DAY}.txt"
 if [ ! -f /path/to/file ]
 then
     	touch "${DAY_FILE}"
