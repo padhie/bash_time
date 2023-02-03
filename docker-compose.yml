@@ -1,0 +1,6 @@
+services:
+    app:
+        image: python:3.8.16-slim
+        working_dir: "/application"
+        volumes:
+            - .:/application
