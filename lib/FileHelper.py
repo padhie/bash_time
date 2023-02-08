@@ -1,4 +1,5 @@
 import os
+import time
 from datetime import datetime
 import lib.DirectoryHelper as DirectoryHelper
 
@@ -30,5 +31,10 @@ def getUniqueTimestampsOfFile(dateFile):
 	return uniqueLines
 
 def getFirstLineOfFile(file):
-	with open(file) as f:
-		return f.readline().strip('\n')
+	timestamp = int(time.time())
+	if os.path.isfile(file) == True:
+		firstLine = open(file).readline().rstrip().strip('\n')
+		if firstLine != '':
+			timestamp = firstLine
+	
+	return timestamp
