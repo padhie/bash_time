@@ -11,21 +11,23 @@ def run():
 	week = DateHelper.getWeekOfDate(dt)
 	start = DateHelper.getFirstDayOfWeek(dt)
 	end = DateHelper.getLastDayOfWeek(dt)
+	minutesTotal = 0
 	
 	print("Week", week)
 	print("Start:", start.strftime("%d.%m.%Y"))
 	print("End:", end.strftime("%d.%m.%Y"))
 	print()
 	
-	print("|---------------------------|")
+	print("+---------------------------+")
 	print("|    Date    | Tracked Time |")
-	print("|---------------------------|")
+	print("+---------------------------+")
 	day = start
 	while day <= end:
 		hours = 0
 		minutes = 0
 		
 		minutesOfDay = TimeTrackHelper.getTrackedMinutesOfDate(day)
+		minutesTotal += minutesOfDay
 		if minutesOfDay != 0:
 			hours = TimeCalculator.getHoursOfMinutes(minutesOfDay)
 			minutes = TimeCalculator.subHouesOfMinutes(minutesOfDay, hours)
@@ -40,4 +42,17 @@ def run():
 		
 		day = day + timedelta(days=1)
 	
-	print("|---------------------------|")
+	print("+---------------------------+")
+
+	hours = 0
+	minutes = 0
+	
+	if minutesTotal != 0:
+		hours = TimeCalculator.getHoursOfMinutes(minutesTotal)
+		minutes = TimeCalculator.subHouesOfMinutes(minutesTotal, hours)
+
+	formatteDateHelperours = f'{hours:02d}'
+	formattedMinutes = f'{minutes:02d}'
+	formattedTime = formattedTimePattern.format(hours=formatteDateHelperours, minutes=formattedMinutes)
+	print("|    Total   |   ", formattedTime, "  |")
+	print("+---------------------------+")

@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 import lib.TimeTrackHelper as TimeTrackHelper
 import lib.TimeCalculator as TimeCalculator
 import lib.DateHelper as DateHelper
+import lib.StringFiller as StringFiller
 
 formattedTimePattern = "{days}d {hours}h {minutes}m"
 
@@ -16,7 +17,12 @@ def printRow(minutesForWeek, week):
 	formattedHours = f'{hours:02d}'
 	formattedMinutes = f'{minutesForWeek:02d}'
 	formattedTime = formattedTimePattern.format(days=formattedDays, hours=formattedHours, minutes=formattedMinutes)
-	print("| ", f'{week:02d}' , " | ", formattedTime, " |")
+
+	if isinstance(week, int):
+		week = f'{week:02d}'
+
+	formattedWeek = StringFiller.fillString(week, 5, " ")
+	print("|", formattedWeek , "| ", formattedTime, "|")
 
 def run(weeksInPast):
 	today = datetime.today()
@@ -30,12 +36,13 @@ def run(weeksInPast):
 	print("End:", end.strftime("%d.%m.%Y"))
 	print()
 	
-	print("|- --------------------|")
-	print("| Week |  Tracked Time |")
-	print("|----------------------|")
+	print("+----------------------+")
+	print("|  Week | Tracked Time |")
+	print("+----------------------+")
 	
 	tmpWeek = DateHelper.getWeekOfDate(start)
 	minutesForWeek = 0
+	minutesTotal = 0
 	
 	day = start
 	while day <= end:
@@ -47,7 +54,10 @@ def run(weeksInPast):
 			tmpWeek = currentWeek
 			
 		minutesForWeek += TimeTrackHelper.getTrackedMinutesOfDate(day)
+		minutesTotal += minutesForWeek
 		day = day + timedelta(days=1)
 		
-	printRow(minutesForWeek, tmpWeek)
-	print("|----------------------|")
+	printRow(minutesForWeek, f'{tmpWeek:02d}')
+	print("+----------------------+")
+	printRow(minutesTotal, "total")
+	print("+----------------------+")
