@@ -44,8 +44,9 @@ def run():
 			minutesForWeek = 0
 			tmpWeek = currentWeek
 			
-		minutesForWeek += TimeTrackHelper.getTrackedMinutesOfDate(day)
-		minutesTotal += minutesForWeek
+		minutesForDay = TimeTrackHelper.getTrackedMinutesOfDate(day)
+		minutesForWeek += minutesForDay
+		minutesTotal += minutesForDay
 		day = day + timedelta(days=1)
 
 	print("+-----------------------+")	
