@@ -6,4 +6,4 @@ def run():
 	timestamp = FileHelper.getFirstLineOfFile(dayFile)
 	datetimeObject = datetime.fromtimestamp(int(timestamp))
 	
-	print(datetimeObject.strftime("%H:%m"))
+	print(datetimeObject.strftime("%H:%m UTC"))
