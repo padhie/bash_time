@@ -37,6 +37,6 @@ elif mode == "last-weeks-table":
 	else:
 		LastWeeksTable.run(int(additionalArg))
 elif mode == "help":
-    Help.run()
+	Help.run()
 else:
 	print("unknown mode given")
