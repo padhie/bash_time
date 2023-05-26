@@ -1,4 +1,3 @@
-
 import lib.TimeCalculator as TimeCalculator
 
 def formatMinutesInHours(minutesTotal):
