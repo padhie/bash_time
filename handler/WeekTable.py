@@ -30,11 +30,11 @@ def run():
 		minutesTotal += minutesOfDay
 		if minutesOfDay != 0:
 			hours = TimeCalculator.getHoursOfMinutes(minutesOfDay)
-			minutes = TimeCalculator.subHouesOfMinutes(minutesOfDay, hours)
+			minutes = TimeCalculator.subHoursOfMinutes(minutesOfDay, hours)
 	
-		formatteDateHelperours = f'{hours:02d}'
+		formattedDateHelperHours = f'{hours:02d}'
 		formattedMinutes = f'{minutes:02d}'
-		formattedTime = formattedTimePattern.format(hours=formatteDateHelperours, minutes=formattedMinutes)
+		formattedTime = formattedTimePattern.format(hours=formattedDateHelperHours, minutes=formattedMinutes)
 		
 		formattedDate = day.strftime("%d.%m.%Y")
 
@@ -49,10 +49,10 @@ def run():
 	
 	if minutesTotal != 0:
 		hours = TimeCalculator.getHoursOfMinutes(minutesTotal)
-		minutes = TimeCalculator.subHouesOfMinutes(minutesTotal, hours)
+		minutes = TimeCalculator.subHoursOfMinutes(minutesTotal, hours)
 
-	formatteDateHelperours = f'{hours:02d}'
+	formattedDateHelperHours = f'{hours:02d}'
 	formattedMinutes = f'{minutes:02d}'
-	formattedTime = formattedTimePattern.format(hours=formatteDateHelperours, minutes=formattedMinutes)
+	formattedTime = formattedTimePattern.format(hours=formattedDateHelperHours, minutes=formattedMinutes)
 	print("|    Total   |   ", formattedTime, "  |")
 	print("+---------------------------+")

@@ -33,12 +33,12 @@ def run():
 			minutesForWeek = TimeCalculator.subDaysOfMinutes(minutesForWeek, days)
 			
 			hours = TimeCalculator.getHoursOfMinutes(minutesForWeek)
-			minutesForWeek = TimeCalculator.subHouesOfMinutes(minutesForWeek, hours)
+			minutesForWeek = TimeCalculator.subHoursOfMinutes(minutesForWeek, hours)
 			
 			formattedDays = f'{days:02d}'
-			formatteDateHelperours = f'{hours:02d}'
+			formattedDateHelperHours = f'{hours:02d}'
 			formattedMinutes = f'{minutesForWeek:02d}'
-			formattedTime = formattedTimePattern.format(days=formattedDays, hours=formatteDateHelperours, minutes=formattedMinutes)
+			formattedTime = formattedTimePattern.format(days=formattedDays, hours=formattedDateHelperHours, minutes=formattedMinutes)
 			print("|  ", f'{tmpWeek:02d}' , " | ", formattedTime, " |")
 			
 			minutesForWeek = 0
@@ -60,12 +60,12 @@ def run():
 			minutesTotal = TimeCalculator.subDaysOfMinutes(minutesTotal, days)
 			
 			hours = TimeCalculator.getHoursOfMinutes(minutesTotal)
-			minutesTotal = TimeCalculator.subHouesOfMinutes(minutesTotal, hours)
+			minutesTotal = TimeCalculator.subHoursOfMinutes(minutesTotal, hours)
 
 	formattedDays = f'{days:02d}'
-	formatteDateHelperours = f'{hours:02d}'
+	formattedDateHelperHours = f'{hours:02d}'
 	formattedMinutes = f'{minutesTotal:02d}'
-	formattedTime = formattedTimePattern.format(days=formattedDays, hours=formatteDateHelperours, minutes=formattedMinutes)
+	formattedTime = formattedTimePattern.format(days=formattedDays, hours=formattedDateHelperHours, minutes=formattedMinutes)
 	print("| Total | ", formattedTime, " |")
 	
 	print("+-----------------------+")

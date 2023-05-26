@@ -25,18 +25,18 @@ def run(output):
 	days = TimeCalculator.getDaysOfMinutes(minutes)
 	minutes = TimeCalculator.subDaysOfMinutes(minutes, days)
 	hours = TimeCalculator.getHoursOfMinutes(minutes)
-	minutes = TimeCalculator.subHouesOfMinutes(minutes, hours)
+	minutes = TimeCalculator.subHoursOfMinutes(minutes, hours)
 
 	formattedDays = f'{days:02d}'
-	formatteDateHelperours = f'{hours:02d}'
+	formattedDateHelperHours = f'{hours:02d}'
 	formattedMinutes = f'{minutes:02d}'
 	
 	formattedTime = ""
-	if formattedDays != '00' and formatteDateHelperours != '00':
-		formattedTime += "{days}d {hours}h {minutes}m".format(days=formattedDays, hours=formatteDateHelperours, minutes=formattedMinutes)
-	elif formattedDays == '00' and formatteDateHelperours != '00':
-		formattedTime += "{hours}h {minutes}m".format(hours=formatteDateHelperours, minutes=formattedMinutes)
-	elif formattedDays == '00' and formatteDateHelperours == '00':
+	if formattedDays != '00' and formattedDateHelperHours != '00':
+		formattedTime += "{days}d {hours}h {minutes}m".format(days=formattedDays, hours=formattedDateHelperHours, minutes=formattedMinutes)
+	elif formattedDays == '00' and formattedDateHelperHours != '00':
+		formattedTime += "{hours}h {minutes}m".format(hours=formattedDateHelperHours, minutes=formattedMinutes)
+	elif formattedDays == '00' and formattedDateHelperHours == '00':
 		formattedTime += "{minutes}m".format(minutes=formattedMinutes)
 
 	print(outputPrefix + formattedTime)

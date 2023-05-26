@@ -11,7 +11,7 @@ def printRow(minutesForWeek, week):
 	minutesForWeek = TimeCalculator.subDaysOfMinutes(minutesForWeek, days)
 	
 	hours = TimeCalculator.getHoursOfMinutes(minutesForWeek)
-	minutesForWeek = TimeCalculator.subHouesOfMinutes(minutesForWeek, hours)
+	minutesForWeek = TimeCalculator.subHoursOfMinutes(minutesForWeek, hours)
 	
 	formattedDays = f'{days:02d}'
 	formattedHours = f'{hours:02d}'
