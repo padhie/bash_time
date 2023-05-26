@@ -1,0 +1,7 @@
+break:
+  -
+    time: 360
+    break: 30
+  -
+    time: 480
+    break: 60
