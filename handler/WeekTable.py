@@ -1,9 +1,9 @@
 from datetime import datetime, timedelta
-import lib.TimeTrackHelper as TimeTrackHelper
-import lib.TimeCalculator as TimeCalculator
-import lib.DateHelper as DateHelper
+from lib.TablePrinter import RowData, TablePrinter, groupRowDataByDateValue
 
-formattedTimePattern = "{hours}h {minutes}m"
+import lib.TimeTrackHelper as TimeTrackHelper
+import lib.DateHelper as DateHelper
+import lib.BreakTimeCalculator as BreakTimeCalculator
 
 def run():
 	dt = datetime.today()
@@ -11,48 +11,28 @@ def run():
 	week = DateHelper.getWeekOfDate(dt)
 	start = DateHelper.getFirstDayOfWeek(dt)
 	end = DateHelper.getLastDayOfWeek(dt)
-	minutesTotal = 0
-	
+
 	print("Week", week)
 	print("Start:", start.strftime("%d.%m.%Y"))
 	print("End:", end.strftime("%d.%m.%Y"))
 	print()
-	
-	print("+---------------------------+")
-	print("|    Date    | Tracked Time |")
-	print("+---------------------------+")
+
+	weekDataList = []
+
 	day = start
 	while day <= end:
 		hours = 0
 		minutes = 0
 		
 		minutesOfDay = TimeTrackHelper.getTrackedMinutesOfDate(day)
-		minutesTotal += minutesOfDay
-		if minutesOfDay != 0:
-			hours = TimeCalculator.getHoursOfMinutes(minutesOfDay)
-			minutes = TimeCalculator.subHouesOfMinutes(minutesOfDay, hours)
-	
-		formatteDateHelperours = f'{hours:02d}'
-		formattedMinutes = f'{minutes:02d}'
-		formattedTime = formattedTimePattern.format(hours=formatteDateHelperours, minutes=formattedMinutes)
-		
 		formattedDate = day.strftime("%d.%m.%Y")
 
-		print("|", formattedDate , "|   ", formattedTime, "  |")
-		
+		breakTime = BreakTimeCalculator.calulcateBreakTime(minutesOfDay)
+		row = RowData(str(formattedDate), breakTime, minutesOfDay)
+		weekDataList.append(row)
 		day = day + timedelta(days=1)
-	
-	print("+---------------------------+")
 
-	hours = 0
-	minutes = 0
-	
-	if minutesTotal != 0:
-		hours = TimeCalculator.getHoursOfMinutes(minutesTotal)
-		minutes = TimeCalculator.subHouesOfMinutes(minutesTotal, hours)
+	groupedWeekData = groupRowDataByDateValue(weekDataList)
 
-	formatteDateHelperours = f'{hours:02d}'
-	formattedMinutes = f'{minutes:02d}'
-	formattedTime = formattedTimePattern.format(hours=formatteDateHelperours, minutes=formattedMinutes)
-	print("|    Total   |   ", formattedTime, "  |")
-	print("+---------------------------+")
+	tablePrinter = TablePrinter("Date")
+	tablePrinter.printTable(groupedWeekData)

@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import time
 import lib.FileHelper as FileHelper
 import lib.CliHelper as CliHelper

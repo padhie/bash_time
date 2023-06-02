@@ -42,5 +42,5 @@ def getHoursOfMinutes(minutes):
 		hours = math.floor(minutes/60)
 	return hours
 
-def subHouesOfMinutes(minutes, hours):
+def subHoursOfMinutes(minutes, hours):
 	return minutes - (hours*60)

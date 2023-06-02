@@ -1,28 +1,9 @@
 from datetime import datetime, timedelta
+from lib.TablePrinter import RowData, TablePrinter, groupRowDataByDateValue
+
 import lib.TimeTrackHelper as TimeTrackHelper
-import lib.TimeCalculator as TimeCalculator
 import lib.DateHelper as DateHelper
-import lib.StringFiller as StringFiller
-
-formattedTimePattern = "{days}d {hours}h {minutes}m"
-
-def printRow(minutesForWeek, week):
-	days = TimeCalculator.getDaysOfMinutes(minutesForWeek)
-	minutesForWeek = TimeCalculator.subDaysOfMinutes(minutesForWeek, days)
-	
-	hours = TimeCalculator.getHoursOfMinutes(minutesForWeek)
-	minutesForWeek = TimeCalculator.subHouesOfMinutes(minutesForWeek, hours)
-	
-	formattedDays = f'{days:02d}'
-	formattedHours = f'{hours:02d}'
-	formattedMinutes = f'{minutesForWeek:02d}'
-	formattedTime = formattedTimePattern.format(days=formattedDays, hours=formattedHours, minutes=formattedMinutes)
-
-	if isinstance(week, int):
-		week = f'{week:02d}'
-
-	formattedWeek = StringFiller.fillString(week, 5, " ")
-	print("|", formattedWeek , "| ", formattedTime, "|")
+import lib.BreakTimeCalculator as BreakTimeCalculator
 
 def run(weeksInPast):
 	today = datetime.today()
@@ -36,28 +17,19 @@ def run(weeksInPast):
 	print("End:", end.strftime("%d.%m.%Y"))
 	print()
 	
-	print("+----------------------+")
-	print("|  Week | Tracked Time |")
-	print("+----------------------+")
-	
-	tmpWeek = DateHelper.getWeekOfDate(start)
-	minutesForWeek = 0
-	minutesTotal = 0
-	
+	weekDataList = []
+
 	day = start
 	while day <= end:
 		currentWeek = DateHelper.getWeekOfDate(day)
-		if (tmpWeek != currentWeek):
-			printRow(minutesForWeek, tmpWeek)
+		minutesForDay = TimeTrackHelper.getTrackedMinutesOfDate(day)
 
-			minutesForWeek = 0
-			tmpWeek = currentWeek
-			
-		minutesForWeek += TimeTrackHelper.getTrackedMinutesOfDate(day)
-		minutesTotal += minutesForWeek
+		totalTime = TimeTrackHelper.getTrackedMinutesOfDate(day)
+		breakTime = BreakTimeCalculator.calulcateBreakTime(totalTime)
+		weekDataList.append(RowData(str(currentWeek), breakTime, totalTime))
 		day = day + timedelta(days=1)
-		
-	printRow(minutesForWeek, f'{tmpWeek:02d}')
-	print("+----------------------+")
-	printRow(minutesTotal, "total")
-	print("+----------------------+")
+
+	groupedWeekData = groupRowDataByDateValue(weekDataList)
+
+	tablePrinter = TablePrinter("Week")
+	tablePrinter.printTable(groupedWeekData)
