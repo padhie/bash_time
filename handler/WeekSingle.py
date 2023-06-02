@@ -27,6 +27,8 @@ def run(output):
 	if output == 'large':
 		print("Start:", start.strftime("%d.%m.%Y"))
 		print("End:", end.strftime("%d.%m.%Y"))
-		print("Time:", formattedTime)
+		print("Tracked Time:", formattedTime)
+		print("Break Time:", TimeFormatter.formatMinutesInHours(breakTime))
+		print("Total Time:", TimeFormatter.formatMinutesInHours(totalTime))
 	else:
 		print(formattedTime)

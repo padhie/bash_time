@@ -3,6 +3,7 @@ from lib.TablePrinter import RowData, TablePrinter, groupRowDataByDateValue
 
 import lib.TimeTrackHelper as TimeTrackHelper
 import lib.DateHelper as DateHelper
+import lib.BreakTimeCalculator as BreakTimeCalculator
 
 def run():
 	dt = datetime.today()
@@ -26,7 +27,9 @@ def run():
 		minutesOfDay = TimeTrackHelper.getTrackedMinutesOfDate(day)
 		formattedDate = day.strftime("%d.%m.%Y")
 
-		weekDataList.append(RowData(str(formattedDate), minutesOfDay))
+		breakTime = BreakTimeCalculator.calulcateBreakTime(minutesOfDay)
+		row = RowData(str(formattedDate), breakTime, minutesOfDay)
+		weekDataList.append(row)
 		day = day + timedelta(days=1)
 
 	groupedWeekData = groupRowDataByDateValue(weekDataList)
